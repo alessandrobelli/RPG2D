@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4336329492085742}
   - component: {fileID: 61465900357252612}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,10 +38,8 @@ GameObject:
   - component: {fileID: 212592438269066418}
   - component: {fileID: 114967228274580462}
   - component: {fileID: 60857854327550280}
-  - component: {fileID: 114206135773137044}
-  - component: {fileID: 114063118742680242}
   - component: {fileID: 114253818390398338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tree
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -68,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531817095997470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.98, y: 3.94, z: 0}
+  m_LocalPosition: {x: 7.65, y: 0.6464379, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4336329492085742}
@@ -140,28 +138,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1306467, y: 0.44803333}
   m_EdgeRadius: 0
---- !u!114 &114063118742680242
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531817095997470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbb8bdd36c91f843a65042ad852f950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114206135773137044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531817095997470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbb8bdd36c91f843a65042ad852f950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114253818390398338
 MonoBehaviour:
   m_ObjectHideFlags: 1

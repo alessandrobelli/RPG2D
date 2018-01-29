@@ -177,7 +177,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61384234988509320
 BoxCollider2D:
@@ -195,7 +195,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 1}
+    oldSize: {x: 0.6, y: 1.15}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -391,9 +391,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b6a83744f46224b9e39979163ccea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  blood: {fileID: 1154887976410530, guid: f637b75d84e32714296e218adbc8bc82, type: 2}
   moveTime: 1
   startingHealth: 100
   damage: 20
+  combatRight: 0
+  fadeTime: 0.4
+  combatAnimation: combatUp
   health: {fileID: 114471995545933182}
 --- !u!212 &212971144931860856
 SpriteRenderer:
@@ -409,7 +414,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6b0b3b0b6cad3344ebfd7847b697374e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -429,7 +434,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300036, guid: a56837aca0c55404cb9794e56126920d, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 8d087b1bf0ffbb24dba766a28cbce31d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

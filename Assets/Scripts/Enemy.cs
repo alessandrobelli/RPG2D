@@ -17,6 +17,13 @@ public class Enemy : Character {
     };
 
     bool moving = false;
+    Player player;
+
+    public float distanceToPlayer { get; private set; }
+    public bool playerInRange { get; private set; }
+
+    private float angle;
+    private float warningArea = 2f;
 
     public override void Start()
     {
@@ -24,8 +31,8 @@ public class Enemy : Character {
         health.Initialize(startingHealth);
 
         damage = 20f;
-        speed = 150f;
-
+        speed = 30f;
+        player = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
@@ -40,9 +47,24 @@ public class Enemy : Character {
             
         }
 
-
+        
         counterAttack();
+        stayAway();
+    }
 
+    void stayAway()
+    {
+        distanceToPlayer = Vector3.Distance((Vector2)transform.position, (Vector2)player.transform.position);
+
+        angle = Vector2.Angle(transform.up, player.transform.position - transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+
+        if (direction.magnitude < 0.6)
+        {
+            float move = (speed * 10) * Time.deltaTime;
+            moving = true;
+            rb2D.velocity = -direction * move;
+        }
     }
 
     /// <summary>
@@ -50,28 +72,30 @@ public class Enemy : Character {
     /// </summary>
     void counterAttack()
     {
-        if (target == null)
-        {
-            rb2D.velocity = Vector2.zero;
-            return;
-        }
-    
-        Vector2 direction = target.position - transform.position;
-        transform.LookAt(target.position);
-        float move = speed * Time.deltaTime;
-        
 
-        if(Vector2.Distance(transform.position,target.position) > 1f)
-        {
+        distanceToPlayer = Vector3.Distance((Vector2)transform.position, (Vector2)player.transform.position);
 
-            rb2D.velocity = direction * move;
+        angle = Vector2.Angle(transform.up, player.transform.position - transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+         rb2D.velocity = Vector2.zero;
+        if (distanceToPlayer < warningArea && direction.magnitude > 0.8)  //move closer but not in the player position
+        {
+            target = player.transform;
+            playerInRange = true;
+          
+            transform.LookAt(player.transform.position);
+            float move = speed * Time.deltaTime;
             moving = true;
+            rb2D.velocity = direction * move;
         }
         else
         {
-            rb2D.velocity = Vector2.zero;
+            target = null;
             moving = false;
+            rb2D.velocity = Vector2.zero;
+            return;
         }
+
     }
 
 

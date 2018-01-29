@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : Character {
-    
+
+    private Vector2 enemyDirection;
 
     public override void Start()
     {
         health.Initialize(100);
         damage = 20f;
-        speed = 7f;
+        speed = 3f;
         base.Start();
 
     }
@@ -59,6 +60,48 @@ public class Player : Character {
 
     }
 
+
+        private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("collision: "+collision.tag);
+        Vector3 dirFromAtoB = (collision.transform.position - transform.position).normalized;
+        if (direction != Vector2.zero) enemyDirection = direction;
+        float dotProd = Vector3.Dot(dirFromAtoB, enemyDirection);
+        
+
+
+        if ((collision.tag == "Player" || collision.tag == "Enemy" ) && !IsMoving)
+        {
+                  animator.SetLayerWeight(2, 1);
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+
+                    animator.SetBool(combatAnimation, true);
+                    animationTime = Time.time;
+                    currentTarget = collision.transform.gameObject.GetComponent<Character>();
+                    attack(currentTarget, damage);
+                    Debug.Log("attack " + collision.transform.name);
+
+                }
+                else if ((Time.time - animationTime) >= fadeTime)
+                {
+
+                    animationTime = 0;
+                    animator.SetBool(combatAnimation, false);
+
+                }
+
+
+
+        }
+        else
+        {
+            animator.SetLayerWeight(2, 0);
+            animator.SetBool(combatAnimation, false);
+      
+        }
+
+    }
 
 
 }

@@ -48,49 +48,46 @@ public class CameraRaycaster : MonoBehaviour
     void Update()
     {
 
-
-        // Look for and return priority layer hit
-        foreach (Layer layer in layerPriorities)
-        {
-            var hit = RaycastForLayer(layer);
-            if (hit.HasValue)
-            {
-                raycastHit = hit.Value;
-                if (layerHit != layer)
-                {
-                    layerHit = layer;
-                    layerChange(layerHit);
-
-                }
-
-                return;
-            }
-        }
-
-        // Otherwise return background hit
-        raycastHit.distance = distanceToBackground;
-        layerHit = Layer.RaycastEndStop;
-
-
-        if (currentLayerHit != Layer.RaycastEndStop) // layer did not change and is is not equal to RayCastEndStop
-        {
-            layerHit = Layer.RaycastEndStop;
-        }
-
+        RaycastHit2D hitt = CheckForCollisions(Input.mousePosition);
+     
     }
+  
 
-    RaycastHit2D? RaycastForLayer(Layer layer)
+    public RaycastHit2D CheckForCollisions(Vector3 dir)
     {
-        int layerMask = 1 << (int)layer; // See Unity docs for mask formation
-        Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Input.mousePosition, distanceToBackground, layerMask);
-      
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.GetComponentInParent<Transform>().name);
-            return hit;
+            Debug.Log("MOUSE POSITION: " + hit.transform.name);
+
+            int layer = hit.transform.gameObject.layer;
+
+            switch (layer)
+            {
+                case (9):
+                    layerChange(Layer.Enemy);
+                    break;
+                default:
+
+                    layerChange(Layer.Walkable);
+                    break;
+
+            }
         }
-        return null;
+        else
+        {
+            layerChange(Layer.Walkable);
+        }
+
+
+        return hit;
     }
+
 }

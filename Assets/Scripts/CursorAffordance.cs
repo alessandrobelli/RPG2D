@@ -25,8 +25,7 @@ public class CursorAffordance : MonoBehaviour
     // Update is called once per frame
     void OnLayerChanged(Layer newLayer)
     {
-        Debug.Log("called");
-
+        
         switch (newLayer)
         {
             case (Layer.Walkable):
